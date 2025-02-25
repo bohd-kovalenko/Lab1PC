@@ -35,13 +35,13 @@ fun generateMatrix(size: Int, threadCount: Int): Array<IntArray> {
     val matrix = Array(size) { IntArray(size) }
     val threads = mutableListOf<Thread>()
     val columnsPerThread = size / threadCount
-    for (threadIndex in 0 until threadCount) {
+    for (threadIndex in 0 ..< threadCount) {
         val startColumn = threadIndex * columnsPerThread
         val endColumn = if (threadIndex == threadCount - 1) size else (threadIndex + 1) * columnsPerThread
         Thread {
-            for (column in startColumn until endColumn) {
+            for (column in startColumn ..< endColumn) {
                 var product = 1
-                for (row in 0 until size) {
+                for (row in 0 ..< size) {
                     if (row != size - 1 - column) {
                         matrix[row][column] = ThreadLocalRandom.current().nextInt(MAX_NUMBER)
                         product *= matrix[row][column]
